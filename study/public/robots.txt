@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://crochee.github.io/sitemap.xml
