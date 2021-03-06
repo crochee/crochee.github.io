@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Study</title>
+    <title>Blog</title>
     <link>https://crochee.github.io/</link>
-    <description>Recent content on Study</description>
+    <description>Recent content on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://crochee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 06 Mar 2021 15:05:44 +0800</lastBuildDate>
+    
+        <atom:link href="https://crochee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://crochee.github.io/about/</link>
+      <pubDate>Sat, 06 Mar 2021 14:38:52 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/about/</guid>
+      
+        <description>&lt;p&gt;Hugo is a static site engine written in Go.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安装golang应用go install github.com/gohugoio/hugo获取hugo&lt;/li&gt;
+&lt;li&gt;建立网站 hugo new site study&lt;/li&gt;
+&lt;li&gt;下载主题 &lt;a href=&#34;https://themes.gohugo.io&#34;&gt;https://themes.gohugo.io&lt;/a&gt; 选择自己的主题&lt;/li&gt;
+&lt;li&gt;创建文章hugo new post/my-first-blog.md&lt;/li&gt;
+&lt;li&gt;生成public内容 hugo -t 主题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>建立网站</title>
+      <link>https://crochee.github.io/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/</link>
+      <pubDate>Sat, 06 Mar 2021 15:05:44 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/</guid>
+      
+        <description>&lt;p&gt;建立静态网页流程&lt;/p&gt;
+&lt;p&gt;这个是一个个人网页&lt;/p&gt;</description>
+      
+    </item>
+    
   </channel>
 </rss>

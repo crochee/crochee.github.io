@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Study</title>
+    <title>Tags on Blog</title>
     <link>https://crochee.github.io/tags/</link>
-    <description>Recent content in Tags on Study</description>
+    <description>Recent content in Tags on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://crochee.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 06 Mar 2021 15:05:44 +0800</lastBuildDate><atom:link href="https://crochee.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some</title>
+      <link>https://crochee.github.io/tags/some/</link>
+      <pubDate>Sat, 06 Mar 2021 15:05:44 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/tags/some/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
