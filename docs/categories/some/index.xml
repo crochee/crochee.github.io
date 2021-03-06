@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Some on Blog</title>
+    <link>https://crochee.github.io/categories/some/</link>
+    <description>Recent content in Some on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 06 Mar 2021 15:05:44 +0800</lastBuildDate><atom:link href="https://crochee.github.io/categories/some/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>建立网站</title>
+      <link>https://crochee.github.io/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/</link>
+      <pubDate>Sat, 06 Mar 2021 15:05:44 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/</guid>
+      <description>&lt;p&gt;建立静态网页流程&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

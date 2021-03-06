@@ -6,3 +6,5 @@ rm -rf public
 
 # 打包jane主题
 hugo -t jane
+
+cp -r ./public/* ./../docs/
