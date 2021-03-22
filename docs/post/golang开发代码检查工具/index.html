@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Golang开发代码检查工具 - Blog</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="crochee" /><meta name="description" content="golang开发的代码检查工具" />
+<meta name="keywords" content="web" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<link rel="canonical" href="https://crochee.github.io/post/golang%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.b3a8813c06e6d785beba22bf8264e174fa2cb3a396b22f9ba24e2c00c18aaf7f.css" integrity="sha256-s6iBPAbm14W&#43;uiK/gmThdPoss6OWsi&#43;bok4sAMGKr38=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="Golang开发代码检查工具" />
+<meta property="og:description" content="golang开发的代码检查工具" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://crochee.github.io/post/golang%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-03-22T16:40:17&#43;08:00" />
+<meta property="article:modified_time" content="2021-03-22T16:40:17&#43;08:00" />
+
+<meta itemprop="name" content="Golang开发代码检查工具">
+<meta itemprop="description" content="golang开发的代码检查工具"><meta itemprop="datePublished" content="2021-03-22T16:40:17&#43;08:00" />
+<meta itemprop="dateModified" content="2021-03-22T16:40:17&#43;08:00" />
+<meta itemprop="wordCount" content="1795">
+<meta itemprop="keywords" content="tool," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang开发代码检查工具"/>
+<meta name="twitter:description" content="golang开发的代码检查工具"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Study</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/">首页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/post/">文档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://gohugo.io" rel="noopener" target="_blank">
+              gohugo
+              
+              <i class="iconfont">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M623.36 272.96 473.216 423.04C467.2 429.056 467.072 438.656 472.896 444.416c0 0-6.72-6.656 1.6 1.6C496.064 467.648 528.64 500.224 528.64 500.224 534.464 506.048 544 505.856 550.016 499.904l150.08-150.144 67.328 66.432c9.024 8.96 27.456 4.544 30.4-8.96 19.968-92.608 46.656-227.52 46.656-227.52 6.848-34.496-16.192-56.704-49.92-49.92 0 0-134.656 26.816-227.328 46.784C560.32 178.048 556.352 182.272 554.752 187.136c-3.2 6.208-3.008 14.208 3.776 20.992L623.36 272.96z"></path>
+  <path d="M841.152 457.152c-30.528 0-54.784 24.512-54.784 54.656l0 274.752L237.696 786.56 237.696 237.696l206.016 0c6.656 0 10.752 0 13.248 0C487.68 237.696 512 213.184 512 182.848 512 152.32 487.36 128 456.96 128L183.04 128C153.216 128 128 152.576 128 182.848c0 3.136 0.256 6.272 0.768 9.28C128.256 195.136 128 198.272 128 201.408l0 639.488c0 0.064 0 0.192 0 0.256 0 0.128 0 0.192 0 0.32 0 30.528 24.512 54.784 54.784 54.784l646.976 0c6.592 0 9.728 0 11.712 0 28.736 0 52.928-22.976 54.464-51.968C896 843.264 896 842.304 896 841.344l0-20.352L896 561.408 896 512.128C896 481.792 871.424 457.152 841.152 457.152z"></path>
+</svg>
+
+              </i>
+            </a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/about/">About</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Study
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/">首页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/post/">文档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://gohugo.io" rel="noopener" target="_blank">
+              gohugo
+              
+              <i class="iconfont">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M623.36 272.96 473.216 423.04C467.2 429.056 467.072 438.656 472.896 444.416c0 0-6.72-6.656 1.6 1.6C496.064 467.648 528.64 500.224 528.64 500.224 534.464 506.048 544 505.856 550.016 499.904l150.08-150.144 67.328 66.432c9.024 8.96 27.456 4.544 30.4-8.96 19.968-92.608 46.656-227.52 46.656-227.52 6.848-34.496-16.192-56.704-49.92-49.92 0 0-134.656 26.816-227.328 46.784C560.32 178.048 556.352 182.272 554.752 187.136c-3.2 6.208-3.008 14.208 3.776 20.992L623.36 272.96z"></path>
+  <path d="M841.152 457.152c-30.528 0-54.784 24.512-54.784 54.656l0 274.752L237.696 786.56 237.696 237.696l206.016 0c6.656 0 10.752 0 13.248 0C487.68 237.696 512 213.184 512 182.848 512 152.32 487.36 128 456.96 128L183.04 128C153.216 128 128 152.576 128 182.848c0 3.136 0.256 6.272 0.768 9.28C128.256 195.136 128 198.272 128 201.408l0 639.488c0 0.064 0 0.192 0 0.256 0 0.128 0 0.192 0 0.32 0 30.528 24.512 54.784 54.784 54.784l646.976 0c6.592 0 9.728 0 11.712 0 28.736 0 52.928-22.976 54.464-51.968C896 843.264 896 842.304 896 841.344l0-20.352L896 561.408 896 512.128C896 481.792 871.424 457.152 841.152 457.152z"></path>
+</svg>
+
+              </i>
+            </a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://crochee.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang开发代码检查工具</h1>
+      
+      <div class="post-meta">
+        <time datetime="2021-03-22" class="post-time">
+          2021-03-22
+        </time>
+        <div class="post-category">
+            <a href="https://crochee.github.io/categories/tool/"> tool </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      <h3 id="golangci-lint-静态代码检查工具">golangci-lint 静态代码检查工具</h3>
+<p>官网：https://github.com/golangci/golangci-lint<br>
+本地下载go get -u github.com/golangci/golangci-lint/cmd/golangci-lint<br>
+启动参考：golangci-lint run -c golangci-lint.yml &ndash;tests=false  &ndash;out-format=json  &gt; golangci-lint.json 2&gt;&amp;1<br>
+参考配置:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
+</span><span class="lnt">295
+</span><span class="lnt">296
+</span><span class="lnt">297
+</span><span class="lnt">298
+</span><span class="lnt">299
+</span><span class="lnt">300
+</span><span class="lnt">301
+</span><span class="lnt">302
+</span><span class="lnt">303
+</span><span class="lnt">304
+</span><span class="lnt">305
+</span><span class="lnt">306
+</span><span class="lnt">307
+</span><span class="lnt">308
+</span><span class="lnt">309
+</span><span class="lnt">310
+</span><span class="lnt">311
+</span><span class="lnt">312
+</span><span class="lnt">313
+</span><span class="lnt">314
+</span><span class="lnt">315
+</span><span class="lnt">316
+</span><span class="lnt">317
+</span><span class="lnt">318
+</span><span class="lnt">319
+</span><span class="lnt">320
+</span><span class="lnt">321
+</span><span class="lnt">322
+</span><span class="lnt">323
+</span><span class="lnt">324
+</span><span class="lnt">325
+</span><span class="lnt">326
+</span><span class="lnt">327
+</span><span class="lnt">328
+</span><span class="lnt">329
+</span><span class="lnt">330
+</span><span class="lnt">331
+</span><span class="lnt">332
+</span><span class="lnt">333
+</span><span class="lnt">334
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">run</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># default concurrency is a available CPU number</span><span class="w">
+</span><span class="w">  </span><span class="nt">concurrency</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># timeout for analysis, e.g. 30s, 5m, default is 1m</span><span class="w">
+</span><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">5m</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># exit code when at least one issue was found, default is 1</span><span class="w">
+</span><span class="w">  </span><span class="nt">issues-exit-code</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># include test files or not, default is true</span><span class="w">
+</span><span class="w">  </span><span class="nt">tests</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># list of build tags, all linters use it. Default is empty list.</span><span class="w">
+</span><span class="w">  </span><span class="nt">build-tags</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">mytag</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># which dirs to skip: issues from them won&#39;t be reported;</span><span class="w">
+</span><span class="w">  </span><span class="c"># can use regexp here: generated.*, regexp is applied on full path;</span><span class="w">
+</span><span class="w">  </span><span class="c"># default value is empty list, but default dirs are skipped independently</span><span class="w">
+</span><span class="w">  </span><span class="c"># from this option&#39;s value (see skip-dirs-use-default).</span><span class="w">
+</span><span class="w">  </span><span class="nt">skip-dirs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">test/*_test.go</span><span class="w">
+</span><span class="w">    </span>- <span class="l">autogenerated_by_my_lib</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># default is true. Enables skipping of directories:</span><span class="w">
+</span><span class="w">  </span><span class="c">#   vendor$, third_party$, testdata$, examples$, Godeps$, builtin$</span><span class="w">
+</span><span class="w">  </span><span class="nt">skip-dirs-use-default</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># which files to skip: they will be analyzed, but issues from them</span><span class="w">
+</span><span class="w">  </span><span class="c"># won&#39;t be reported. Default value is empty list, but there is</span><span class="w">
+</span><span class="w">  </span><span class="c"># no need to include all autogenerated files, we confidently recognize</span><span class="w">
+</span><span class="w">  </span><span class="c"># autogenerated files. If it&#39;s not please let us know.</span><span class="w">
+</span><span class="w">  </span><span class="nt">skip-files</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;.*\\.my\\.go$&#34;</span><span class="w">
+</span><span class="w">    </span>- <span class="l">lib/bad.go</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># by default isn&#39;t set. If set we pass it to &#34;go list -mod={option}&#34;. From &#34;go help modules&#34;:</span><span class="w">
+</span><span class="w">  </span><span class="c"># If invoked with -mod=readonly, the go command is disallowed from the implicit</span><span class="w">
+</span><span class="w">  </span><span class="c"># automatic updating of go.mod described above. Instead, it fails when any changes</span><span class="w">
+</span><span class="w">  </span><span class="c"># to go.mod are needed. This setting is most useful to check that go.mod does</span><span class="w">
+</span><span class="w">  </span><span class="c"># not need updates, such as in a continuous integration and testing system.</span><span class="w">
+</span><span class="w">  </span><span class="c"># If invoked with -mod=vendor, the go command assumes that the vendor</span><span class="w">
+</span><span class="w">  </span><span class="c"># directory holds the correct copies of dependencies and ignores</span><span class="w">
+</span><span class="w">  </span><span class="c"># the dependency descriptions in go.mod.</span><span class="w">
+</span><span class="w">  </span><span class="c"># modules-download-mode: readonly|release|vendor</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># output configuration options</span><span class="w">
+</span><span class="w"></span><span class="nt">output</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># colored-line-number|line-number|json|tab|checkstyle|code-climate, default is &#34;colored-line-number&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l">colored-line-number</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># print lines of code with issue, default is true</span><span class="w">
+</span><span class="w">  </span><span class="nt">print-issued-lines</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># print linter name in the end of issue text, default is true</span><span class="w">
+</span><span class="w">  </span><span class="nt">print-linter-name</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># all available settings of specific linters</span><span class="w">
+</span><span class="w"></span><span class="nt">linters-settings</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">errcheck</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># report about not checking of errors in type assetions: `a := b.(MyStruct)`;</span><span class="w">
+</span><span class="w">    </span><span class="c"># default is false: such cases aren&#39;t reported by default.</span><span class="w">
+</span><span class="w">    </span><span class="nt">check-type-assertions</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`;</span><span class="w">
+</span><span class="w">    </span><span class="c"># default is false: such cases aren&#39;t reported by default.</span><span class="w">
+</span><span class="w">    </span><span class="nt">check-blank</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># [deprecated] comma-separated list of pairs of the form pkg:regex</span><span class="w">
+</span><span class="w">    </span><span class="c"># the regex is used to ignore names within pkg. (default &#34;fmt:.*&#34;).</span><span class="w">
+</span><span class="w">    </span><span class="c"># see https://github.com/kisielk/errcheck#the-deprecated-method for details</span><span class="w">
+</span><span class="w">    </span><span class="nt">ignore</span><span class="p">:</span><span class="w"> </span><span class="l">fmt:.*,io/ioutil:^Read.*</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># path to a file containing a list of functions to exclude from checking</span><span class="w">
+</span><span class="w">    </span><span class="c"># see https://github.com/kisielk/errcheck#excluding-functions for details</span><span class="w">
+</span><span class="w">    </span><span class="nt">exclude</span><span class="p">:</span><span class="w"> </span><span class="l">/path/to/file.txt</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">funlen</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">lines</span><span class="p">:</span><span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="w">    </span><span class="nt">statements</span><span class="p">:</span><span class="w"> </span><span class="m">40</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">govet</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># report about shadowed variables</span><span class="w">
+</span><span class="w">    </span><span class="nt">check-shadowing</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># settings per analyzer</span><span class="w">
+</span><span class="w">    </span><span class="nt">settings</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">printf</span><span class="p">:</span><span class="w"> </span><span class="c"># analyzer name, run `go tool vet help` to see all analyzers</span><span class="w">
+</span><span class="w">        </span><span class="nt">funcs</span><span class="p">:</span><span class="w"> </span><span class="c"># run `go tool vet help printf` to see available settings for `printf` analyzer</span><span class="w">
+</span><span class="w">          </span>- <span class="l">(github.com/golangci/golangci-lint/pkg/logutils.Log).Infof</span><span class="w">
+</span><span class="w">          </span>- <span class="l">(github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf</span><span class="w">
+</span><span class="w">          </span>- <span class="l">(github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf</span><span class="w">
+</span><span class="w">          </span>- <span class="l">(github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># enable or disable analyzers by name</span><span class="w">
+</span><span class="w">    </span><span class="nt">enable</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">atomicalign</span><span class="w">
+</span><span class="w">    </span><span class="nt">enable-all</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="nt">disable</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">shadow</span><span class="w">
+</span><span class="w">    </span><span class="nt">disable-all</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">golint</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># minimal confidence for issues, default is 0.8</span><span class="w">
+</span><span class="w">    </span><span class="nt">min-confidence</span><span class="p">:</span><span class="w"> </span><span class="m">0.8</span><span class="w">
+</span><span class="w">  </span><span class="nt">gofmt</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># simplify code: gofmt with `-s` option, true by default</span><span class="w">
+</span><span class="w">    </span><span class="nt">simplify</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">goimports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># put imports beginning with prefix after 3rd-party packages;</span><span class="w">
+</span><span class="w">    </span><span class="c"># it&#39;s a comma-separated list of prefixes</span><span class="w">
+</span><span class="w">    </span><span class="nt">local-prefixes</span><span class="p">:</span><span class="w"> </span><span class="l">github.com/org/project</span><span class="w">
+</span><span class="w">  </span><span class="nt">gocyclo</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># minimal code complexity to report, 30 by default (but we recommend 10-20)</span><span class="w">
+</span><span class="w">    </span><span class="nt">min-complexity</span><span class="p">:</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span><span class="w">  </span><span class="nt">gocognit</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># minimal code complexity to report, 30 by default (but we recommend 10-20)</span><span class="w">
+</span><span class="w">    </span><span class="nt">min-complexity</span><span class="p">:</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span><span class="w">  </span><span class="nt">maligned</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># print struct with more effective memory layout or not, false by default</span><span class="w">
+</span><span class="w">    </span><span class="nt">suggest-new</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">dupl</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># tokens count to trigger issue, 150 by default</span><span class="w">
+</span><span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="w">
+</span><span class="w">  </span><span class="nt">goconst</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># minimal length of string constant, 3 by default</span><span class="w">
+</span><span class="w">    </span><span class="nt">min-len</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">    </span><span class="c"># minimal occurrences count to trigger, 3 by default</span><span class="w">
+</span><span class="w">    </span><span class="nt">min-occurrences</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">  </span><span class="nt">depguard</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">list-type</span><span class="p">:</span><span class="w"> </span><span class="l">blacklist</span><span class="w">
+</span><span class="w">    </span><span class="nt">include-go-root</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="nt">packages</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">github.com/sirupsen/logrus</span><span class="w">
+</span><span class="w">    </span><span class="nt">packages-with-error-messages</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># specify an error message to output when a blacklisted package is used</span><span class="w">
+</span><span class="w">      </span><span class="nt">github.com/sirupsen/logrus</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;logging is allowed only by logutils.Log&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">misspell</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># Correct spellings using locale preferences for US or UK.</span><span class="w">
+</span><span class="w">    </span><span class="c"># Default is to use a neutral variety of English.</span><span class="w">
+</span><span class="w">    </span><span class="c"># Setting locale to US will correct the British spelling of &#39;colour&#39; to &#39;color&#39;.</span><span class="w">
+</span><span class="w">    </span><span class="nt">locale</span><span class="p">:</span><span class="w"> </span><span class="l">US</span><span class="w">
+</span><span class="w">    </span><span class="nt">ignore-words</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">someword</span><span class="w">
+</span><span class="w">  </span><span class="nt">lll</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># max line length, lines longer will be reported. Default is 120.</span><span class="w">
+</span><span class="w">    </span><span class="c"># &#39;\t&#39; is counted as 1 character by default, and can be changed with the tab-width option</span><span class="w">
+</span><span class="w">    </span><span class="nt">line-length</span><span class="p">:</span><span class="w"> </span><span class="m">120</span><span class="w">
+</span><span class="w">    </span><span class="c"># tab width in spaces. Default to 1.</span><span class="w">
+</span><span class="w">    </span><span class="nt">tab-width</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="nt">unused</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># treat code as a program (not a library) and report unused exported identifiers; default is false.</span><span class="w">
+</span><span class="w">    </span><span class="c"># XXX: if you enable this setting, unused will report a lot of false-positives in text editors:</span><span class="w">
+</span><span class="w">    </span><span class="c"># if it&#39;s called for subdir of a project it can&#39;t find funcs usages. All text editor integrations</span><span class="w">
+</span><span class="w">    </span><span class="c"># with golangci-lint call it on a directory with the changed file.</span><span class="w">
+</span><span class="w">    </span><span class="nt">check-exported</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">unparam</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># Inspect exported functions, default is false. Set to true if no external program/library imports your code.</span><span class="w">
+</span><span class="w">    </span><span class="c"># XXX: if you enable this setting, unparam will report a lot of false-positives in text editors:</span><span class="w">
+</span><span class="w">    </span><span class="c"># if it&#39;s called for subdir of a project it can&#39;t find external interfaces. All text editor integrations</span><span class="w">
+</span><span class="w">    </span><span class="c"># with golangci-lint call it on a directory with the changed file.</span><span class="w">
+</span><span class="w">    </span><span class="nt">check-exported</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">nakedret</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># make an issue if func has more lines of code than this setting and it has naked returns; default is 30</span><span class="w">
+</span><span class="w">    </span><span class="nt">max-func-lines</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">  </span><span class="nt">prealloc</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># XXX: we don&#39;t recommend using this linter before doing performance profiling.</span><span class="w">
+</span><span class="w">    </span><span class="c"># For most programs usage of prealloc will be a premature optimization.</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Report preallocation suggestions only on simple loops that have no returns/breaks/continues/gotos in them.</span><span class="w">
+</span><span class="w">    </span><span class="c"># True by default.</span><span class="w">
+</span><span class="w">    </span><span class="nt">simple</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">range-loops</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># Report preallocation suggestions on range loops, true by default</span><span class="w">
+</span><span class="w">    </span><span class="nt">for-loops</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c"># Report preallocation suggestions on for loops, false by default</span><span class="w">
+</span><span class="w">  </span><span class="nt">gocritic</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># Which checks should be enabled; can&#39;t be combined with &#39;disabled-checks&#39;;</span><span class="w">
+</span><span class="w">    </span><span class="c"># See https://go-critic.github.io/overview#checks-overview</span><span class="w">
+</span><span class="w">    </span><span class="c"># To check which checks are enabled run `GL_DEBUG=gocritic golangci-lint run`</span><span class="w">
+</span><span class="w">    </span><span class="c"># By default list of stable checks is used.</span><span class="w">
+</span><span class="w">    </span><span class="c">#enabled-checks:</span><span class="w">
+</span><span class="w">    </span><span class="c">#  - rangeValCopy</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Which checks should be disabled; can&#39;t be combined with &#39;enabled-checks&#39;; default is empty</span><span class="w">
+</span><span class="w">    </span><span class="nt">disabled-checks</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">regexpMust</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Enable multiple checks by tags, run `GL_DEBUG=gocritic golangci-lint run` to see all tags and checks.</span><span class="w">
+</span><span class="w">    </span><span class="c"># Empty list by default. See https://github.com/go-critic/go-critic#usage -&gt; section &#34;Tags&#34;.</span><span class="w">
+</span><span class="w">    </span><span class="nt">enabled-tags</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">performance</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="nt">settings</span><span class="p">:</span><span class="w"> </span><span class="c"># settings passed to gocritic</span><span class="w">
+</span><span class="w">      </span><span class="nt">captLocal</span><span class="p">:</span><span class="w"> </span><span class="c"># must be valid enabled check name</span><span class="w">
+</span><span class="w">        </span><span class="nt">paramsOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span><span class="nt">rangeValCopy</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">sizeThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">32</span><span class="w">
+</span><span class="w">  </span><span class="nt">godox</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># report any comments starting with keywords, this is useful for TODO or FIXME comments that</span><span class="w">
+</span><span class="w">    </span><span class="c"># might be left in the code accidentally and should be resolved before merging</span><span class="w">
+</span><span class="w">    </span><span class="nt">keywords</span><span class="p">:</span><span class="w"> </span><span class="c"># default keywords are TODO, BUG, and FIXME, these can be overwritten by this setting</span><span class="w">
+</span><span class="w">      </span>- <span class="l">NOTE</span><span class="w">
+</span><span class="w">      </span>- <span class="l">OPTIMIZE</span><span class="w"> </span><span class="c"># marks code that should be optimized before merging</span><span class="w">
+</span><span class="w">      </span>- <span class="l">HACK</span><span class="w"> </span><span class="c"># marks hack-arounds that should be removed before merging</span><span class="w">
+</span><span class="w">  </span><span class="nt">dogsled</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># checks assignments with too many blank identifiers; default is 2</span><span class="w">
+</span><span class="w">    </span><span class="nt">max-blank-identifiers</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">whitespace</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">multi-if</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c"># Enforces newlines (or comments) after every multi-line if statement</span><span class="w">
+</span><span class="w">    </span><span class="nt">multi-func</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c"># Enforces newlines (or comments) after every multi-line function signature</span><span class="w">
+</span><span class="w">  </span><span class="nt">wsl</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># If true append is only allowed to be cuddled if appending value is</span><span class="w">
+</span><span class="w">    </span><span class="c"># matching variables, fields or types on line above. Default is true.</span><span class="w">
+</span><span class="w">    </span><span class="nt">strict-append</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="c"># Allow calls and assignments to be cuddled as long as the lines have any</span><span class="w">
+</span><span class="w">    </span><span class="c"># matching variables, fields or types. Default is true.</span><span class="w">
+</span><span class="w">    </span><span class="nt">allow-assign-and-call</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="c"># Allow multiline assignments to be cuddled. Default is true.</span><span class="w">
+</span><span class="w">    </span><span class="nt">allow-multiline-assign</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="c"># Allow declarations (var) to be cuddled.</span><span class="w">
+</span><span class="w">    </span><span class="nt">allow-cuddle-declarations</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="c"># Allow trailing comments in ending of blocks</span><span class="w">
+</span><span class="w">    </span><span class="nt">allow-trailing-comment</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="c"># Force newlines in end of case at this limit (0 = never).</span><span class="w">
+</span><span class="w">    </span><span class="nt">force-case-trailing-whitespace</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">linters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">enable</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">bodyclose</span><span class="w">
+</span><span class="w">    </span>- <span class="l">deadcode</span><span class="w">
+</span><span class="w">    </span>- <span class="l">depguard</span><span class="w">
+</span><span class="w">    </span>- <span class="l">gocognit</span><span class="w">
+</span><span class="w">    </span>- <span class="l">funlen</span><span class="w">
+</span><span class="w">    </span>- <span class="l">gocyclo</span><span class="w">
+</span><span class="w">    </span>- <span class="l">gosimple</span><span class="w">
+</span><span class="w">    </span>- <span class="l">govet</span><span class="w">
+</span><span class="w">    </span>- <span class="l">ineffassign</span><span class="w">
+</span><span class="w">    </span>- <span class="l">lll</span><span class="w">
+</span><span class="w">    </span>- <span class="l">scopelint</span><span class="w">
+</span><span class="w">    </span>- <span class="l">staticcheck</span><span class="w">
+</span><span class="w">    </span>- <span class="l">structcheck</span><span class="w">
+</span><span class="w">    </span>- <span class="l">unused</span><span class="w">
+</span><span class="w">    </span>- <span class="l">varcheck</span><span class="w">
+</span><span class="w">  </span><span class="nt">disable</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">maligned</span><span class="w">
+</span><span class="w">    </span>- <span class="l">prealloc</span><span class="w">
+</span><span class="w">    </span>- <span class="l">errcheck</span><span class="w">
+</span><span class="w">    </span>- <span class="l">unparam</span><span class="w">
+</span><span class="w">    </span>- <span class="l">gochecknoglobals</span><span class="w">
+</span><span class="w">    </span>- <span class="l">godox</span><span class="w">
+</span><span class="w">    </span>- <span class="l">typecheck</span><span class="w">
+</span><span class="w">    </span>- <span class="l">dogsled</span><span class="w">
+</span><span class="w">    </span>- <span class="l">dupl</span><span class="w">
+</span><span class="w">    </span>- <span class="l">gochecknoinits</span><span class="w">
+</span><span class="w">    </span>- <span class="l">goconst</span><span class="w">
+</span><span class="w">    </span>- <span class="l">gocritic</span><span class="w">
+</span><span class="w">    </span>- <span class="l">interfacer</span><span class="w">
+</span><span class="w">    </span>- <span class="l">misspell</span><span class="w">
+</span><span class="w">    </span>- <span class="l">nakedret</span><span class="w">
+</span><span class="w">    </span>- <span class="l">unconvert</span><span class="w">
+</span><span class="w">    </span>- <span class="l">wsl</span><span class="w">
+</span><span class="w">    </span>- <span class="l">whitespace</span><span class="w">
+</span><span class="w">    </span>- <span class="l">golint</span><span class="w">
+</span><span class="w">    </span>- <span class="l">gosec</span><span class="w">
+</span><span class="w">    </span>- <span class="l">stylecheck</span><span class="w">
+</span><span class="w">  </span><span class="nt">disable-all</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">presets</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">bugs</span><span class="w">
+</span><span class="w">    </span>- <span class="l">unused</span><span class="w">
+</span><span class="w">  </span><span class="nt">fast</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">issues</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># List of regexps of issue texts to exclude, empty list by default.</span><span class="w">
+</span><span class="w">  </span><span class="c"># But independently from this option we use default exclude patterns,</span><span class="w">
+</span><span class="w">  </span><span class="c"># it can be disabled by `exclude-use-default: false`. To list all</span><span class="w">
+</span><span class="w">  </span><span class="c"># excluded by default patterns execute `golangci-lint run --help`</span><span class="w">
+</span><span class="w">  </span><span class="nt">exclude</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">abcdef</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Excluding configuration per-path, per-linter, per-text and per-source</span><span class="w">
+</span><span class="w">  </span><span class="nt">exclude-rules</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># Exclude some linters from running on tests files.</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">_test\.go</span><span class="w">
+</span><span class="w">      </span><span class="nt">linters</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">gocyclo</span><span class="w">
+</span><span class="w">        </span>- <span class="l">errcheck</span><span class="w">
+</span><span class="w">        </span>- <span class="l">dupl</span><span class="w">
+</span><span class="w">        </span>- <span class="l">gosec</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Exclude known linters from partially hard-vendored code,</span><span class="w">
+</span><span class="w">    </span><span class="c"># which is impossible to exclude via &#34;nolint&#34; comments.</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">internal/hmac/</span><span class="w">
+</span><span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;weak cryptographic primitive&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">linters</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">gosec</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Exclude some staticcheck messages</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">linters</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">staticcheck</span><span class="w">
+</span><span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;SA9003:&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Exclude lll issues for long lines with go:generate</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">linters</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">lll</span><span class="w">
+</span><span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;^//go:generate &#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Independently from option `exclude` we use default exclude patterns,</span><span class="w">
+</span><span class="w">  </span><span class="c"># it can be disabled by this option. To list all</span><span class="w">
+</span><span class="w">  </span><span class="c"># excluded by default patterns execute `golangci-lint run --help`.</span><span class="w">
+</span><span class="w">  </span><span class="c"># Default value for this option is true.</span><span class="w">
+</span><span class="w">  </span><span class="nt">exclude-use-default</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Maximum issues count per one linter. Set to 0 to disable. Default is 50.</span><span class="w">
+</span><span class="w">  </span><span class="nt">max-issues-per-linter</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Maximum count of issues with the same text. Set to 0 to disable. Default is 3.</span><span class="w">
+</span><span class="w">  </span><span class="nt">max-same-issues</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Show only new issues: if there are unstaged changes or untracked files,</span><span class="w">
+</span><span class="w">  </span><span class="c"># only those changes are analyzed, else only changes in HEAD~ are analyzed.</span><span class="w">
+</span><span class="w">  </span><span class="c"># It&#39;s a super-useful option for integration of golangci-lint into existing</span><span class="w">
+</span><span class="w">  </span><span class="c"># large codebase. It&#39;s not practical to fix all existing issues at the moment</span><span class="w">
+</span><span class="w">  </span><span class="c"># of integration: much better don&#39;t allow issues in new code.</span><span class="w">
+</span><span class="w">  </span><span class="c"># Default is false.</span><span class="w">
+</span><span class="w">  </span><span class="nt">new</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Show only new issues created after git revision `REV`</span><span class="w">
+</span><span class="w">  </span><span class="nt">new-from-rev</span><span class="p">:</span><span class="w"> </span><span class="l">REV</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Show only new issues created in git patch with set file path.</span><span class="w">
+</span><span class="w">  </span><span class="nt">new-from-patch</span><span class="p">:</span><span class="w"> </span><span class="l">./</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gosec-安全分析工具">gosec 安全分析工具</h3>
+<p>官网：https://github.com/securego/gosec<br>
+本地下载:go get -u github.com/securego/gosec/cmd/gosec<br>
+启动参考:gosec -fmt=json -out=results.json ./&hellip;</p>
+    </div>
+
+    
+    
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://crochee.github.io/tags/tool/">tool</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/">
+            <span class="next-text nav-default">建立网站</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="https://github.com/crochee" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://crochee.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2021
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        crochee
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.dee43230127a73d039a734510fa896c89c3c7ce0cf0be0c7a7433f8fd69b76dc.js" integrity="sha256-3uQyMBJ6c9A5pzRRD6iWyJw8fODPC&#43;DHp0M/j9abdtw=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
