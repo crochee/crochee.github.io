@@ -3,11 +3,11 @@ title: "Golang开发代码检查工具"
 date: 2021-03-22T16:40:17+08:00
 lastmod: 2021-03-22T16:40:17+08:00
 draft: false
-keywords: []
-description: ""
-tags: []
-categories: []
-author: ""
+keywords: ["web"]
+description: "golang开发的代码检查工具"
+tags: ["tool"]
+categories: ["tool"]
+author: "crochee"
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed
