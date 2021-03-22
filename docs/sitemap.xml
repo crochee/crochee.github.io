@@ -10,62 +10,41 @@
   
   <url>
     <loc>https://crochee.github.io/</loc>
-    <lastmod>2021-03-06T22:23:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/categories/</loc>
-    <lastmod>2021-03-06T22:23:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/tags/docker/</loc>
-    <lastmod>2021-03-06T22:23:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/categories/docker/</loc>
-    <lastmod>2021-03-06T22:23:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/post/</loc>
-    <lastmod>2021-03-06T22:23:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/tags/</loc>
-    <lastmod>2021-03-06T22:23:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/post/wsl%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2021-03-06T22:23:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/tags/some/</loc>
     <lastmod>2021-03-06T15:05:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://crochee.github.io/categories/some/</loc>
+    <loc>https://crochee.github.io/tags/build/</loc>
+    <lastmod>2021-03-06T15:05:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/categories/</loc>
+    <lastmod>2021-03-06T15:05:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/post/</loc>
+    <lastmod>2021-03-06T15:05:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/categories/self/</loc>
+    <lastmod>2021-03-06T15:05:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/tags/</loc>
     <lastmod>2021-03-06T15:05:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

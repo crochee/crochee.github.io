@@ -6,7 +6,7 @@
     <description>Recent content on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 06 Mar 2021 22:23:50 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Mar 2021 15:05:44 +0800</lastBuildDate>
     
         <atom:link href="https://crochee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -32,23 +32,6 @@
     </item>
     
     <item>
-      <title>Wsl安装</title>
-      <link>https://crochee.github.io/post/wsl%E5%AE%89%E8%A3%85/</link>
-      <pubDate>Sat, 06 Mar 2021 22:23:50 +0800</pubDate>
-      
-      <guid>https://crochee.github.io/post/wsl%E5%AE%89%E8%A3%85/</guid>
-      
-        <description>&lt;p&gt;###windows版本要求
-安装wsl2对系统版本有硬性的要求&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;运行 Windows 10（已更新到版本 2004 的内部版本 19041 或更高版本）&lt;/li&gt;
-&lt;li&gt;通过按 Windows 徽标键 + R，检查你的 Windows 版本，然后键入 winver，选择“确定”。 如果内部版本低于 19041，请更新到最新的 Windows 版本&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://crochee.github.io/windowsversion.png&#34; alt=&#34;avatar&#34;&gt;&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
       <title>建立网站</title>
       <link>https://crochee.github.io/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/</link>
       <pubDate>Sat, 06 Mar 2021 15:05:44 +0800</pubDate>
@@ -56,7 +39,10 @@
       <guid>https://crochee.github.io/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/</guid>
       
         <description>&lt;p&gt;建立静态网页流程&lt;/p&gt;
-&lt;p&gt;这个是一个个人网页&lt;/p&gt;</description>
+&lt;p&gt;这个是一个个人网页&lt;/p&gt;
+&lt;h4 id=&#34;主题选择&#34;&gt;主题选择&lt;/h4&gt;
+&lt;p&gt;jane 地址:https://github.com/xianmin/hugo-theme-jane&lt;br&gt;
+除官网的使用介绍外，在新增文档之前需要将archetypes同步为jane的archetypes,生成文档后需要展示的则将draft改为false&lt;/p&gt;</description>
       
     </item>
     
