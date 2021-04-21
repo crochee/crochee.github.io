@@ -6,7 +6,7 @@
     <description>Recent content on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 22 Mar 2021 16:40:17 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 21 Apr 2021 16:00:47 +0800</lastBuildDate>
     
         <atom:link href="https://crochee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -28,6 +28,80 @@
 &lt;/ul&gt;
 &lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 </description>
+      
+    </item>
+    
+    <item>
+      <title>Golang代码规范</title>
+      <link>https://crochee.github.io/post/golang%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Wed, 21 Apr 2021 16:00:47 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/post/golang%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
+      
+        <description>&lt;h3 id=&#34;目录规范&#34;&gt;目录规范&lt;/h3&gt;
+&lt;p&gt;如同linux目录都有他的职责一样，代码目录也必须符合一定规范：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;README.md 项目说明文档，说明项目的功能等信息&lt;/li&gt;
+&lt;li&gt;.gitignore 包含忽略的文件内容，必须将IDE的配置，二进制文件，临时文件排除&lt;/li&gt;
+&lt;li&gt;.code 代码门禁配置&lt;/li&gt;
+&lt;li&gt;cmd/ 用来放main函数，比如cmd/{component_name}/main.go&lt;/li&gt;
+&lt;li&gt;conf/ 配置文件，存放程序运行时所需要的配置文件&lt;/li&gt;
+&lt;li&gt;docs/ 文档目录，采用 Markdown 格式的设计、使用文档，接口API等，最好用sphinx进行管理&lt;/li&gt;
+&lt;li&gt;pkg/ 公共基础库，可以复用，且外部工程也能可能会使用&lt;/li&gt;
+&lt;li&gt;internal/ 不希望被工程外的工程调用&lt;/li&gt;
+&lt;li&gt;test/ 放测试数据，mock用的数据等，不要放单元测试代码&lt;/li&gt;
+&lt;li&gt;deployments/ 部署用的编排模板，比如terraform，aos，k8s模板和helm&lt;/li&gt;
+&lt;li&gt;build/package 打包脚本 ，用于打包docker, rpm, deb, zip, tar.gz&lt;/li&gt;
+&lt;li&gt;build/ci ci用脚本，ut，静态检查等等&lt;/li&gt;
+&lt;li&gt;scripts/ 其余脚本&lt;/li&gt;
+&lt;li&gt;examples/ 例子代码&lt;/li&gt;
+&lt;li&gt;assets/ 工程资源， 比如图片&lt;/li&gt;
+&lt;li&gt;plugins/ 可扩展插拔的插件&lt;/li&gt;
+&lt;li&gt;resource/ rest api实现，可以用resource/v1 resource/v2 resource/v1alpha这种格式表示不同api版本
+go.mod与go.sum为所有项目必备文件，允许子目录内部存在这2个文件用于组件拆分。对于库类型工程，目录可自由安排，需要遵从go编程规范。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;readme规范&#34;&gt;README规范&lt;/h3&gt;
+&lt;p&gt;需要有以下信息，并且保证代码一致性&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;信息&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;是否必选&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;概述&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;是&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;本地开发指南&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;是&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;最小化启动配置&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;是&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;监听端口&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;是&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;代码提交规范&#34;&gt;代码提交规范&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;[Refactor|Bugfix|Perf|Config|Test|Other #单号] 标题&lt;/li&gt;
+&lt;li&gt;[VisionNo:] 单号&lt;/li&gt;
+&lt;li&gt;[IssueTitle:] 事件标题&lt;/li&gt;
+&lt;li&gt;[why:根因分析]：缺陷定位根因描述 / 代码重构原因&lt;/li&gt;
+&lt;li&gt;[where&amp;amp;how:修改思路]：改动的代码文件和位置, 需求实现思路 / 缺陷解决思路&lt;/li&gt;
+&lt;li&gt;[how test:影响描述&amp;amp;测试建议]：修改点的影响描述，已经做了哪些测试，还有哪些风险点需要重点检视？&lt;/li&gt;
+&lt;/ul&gt;</description>
       
     </item>
     
