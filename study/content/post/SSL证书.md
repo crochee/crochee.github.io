@@ -33,7 +33,243 @@ server-key.pem 服务端秘钥
 ### 相关生成工具
 目前自颁发证书的工具有两类，openssl,cfssl  
 cfssl由golang编写，官网：https://github.com/cloudflare/cfssl  
-根据官网流程生成本地工具或者服务
+根据官网流程生成本地工具或者服务,为了方便后续步骤最好是全部安装
+#### 1.生成CA证书和私钥
+##### 生成csr配置
+```shell script
+# 打印csr模板文件从而进行修改
+cfssl print-defaults csr > ca-csr.json
+```
+```shell script
+# 查看内容
+cat ca-csr.json
+```
+内容如下
+```json
+{
+  "CN": "example.net",
+  "hosts": [
+    "example.net",
+    "www.example.net"
+  ],
+  "key": {
+    "algo": "ecdsa",
+    "size": 256
+  },
+  "names": [
+    {
+      "C": "US",
+      "ST": "CA",
+      "L": "San Francisco"
+    }
+  ]
+}
+```
+修改为
+```json
+{
+  "CN": "example.net",
+  "hosts": [
+    "example.net",
+    "www.example.net"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "CN",
+      "ST": "GuangDong",
+      "L": "ShenZhen",
+      "O": "HW",
+      "OU": "BU"
+    }
+  ]
+}
+```
+注释
+*   csr Certificate Signing Request的英文缩写，即证书签名请求文件
+*   CN Common Name，浏览器使用该字段验证网站是否合法，一般写的是域名。非常重要。浏览器使用该字段验证网站是否合法。如果是CA，这是CA生成证书的域名
+*   key 生成证书的算法
+*   hosts：表示哪些主机名(域名)或者IP可以使用此csr申请的证书，为空或者""表示所有的都可以使用
+*   names:
+    *   C 国家，一般都是填写国际通用的国家缩写
+    *   L 城市，使用cert的组织所在城市
+    *   O 组织或公司名称，就是使用cert的组织名称
+    *   OU 具体使用cert的部门或单位，就是组织的下级名称
+    *   ST 省份，使用cert的组织所在省份
+##### 生成ca-key.pem、ca.csr和ca.pem
+初次情况下
+```shell script
+cfssl gencert -initca ca-csr.json | cfssljson -bare ca
+```
+使用现有私钥, 重新生成
+```shell script
+cfssl gencert -initca -ca-key ca-key.pem ca-csr.json | cfssljson -bare ca
+```
+```text
+2021/05/08 15:46:32 [INFO] generating a new CA key and certificate from CSR
+2021/05/08 15:46:32 [INFO] generate received request
+2021/05/08 15:46:32 [INFO] received CSR
+2021/05/08 15:46:32 [INFO] generating key: rsa-2048
+2021/05/08 15:46:32 [INFO] encoded CSR
+2021/05/08 15:46:32 [INFO] signed certificate with serial number 220628825042308002764673979550323427974788427273
+```
+#### 配置证书生成策略，并启动ca服务
+```shell script
+# 打印config模板文件从而进行修改
+cfssl print-defaults config > ca-config.json
+```
+```shell script
+# 查看内容
+cat ca-config.json
+```
+内容如下
+```json
+{
+  "signing": {
+    "default": {
+      "expiry": "168h"
+    },
+    "profiles": {
+      "www": {
+        "expiry": "8760h",
+        "usages": [
+          "signing",
+          "key encipherment",
+          "server auth"
+        ]
+      },
+      "client": {
+        "expiry": "8760h",
+        "usages": [
+          "signing",
+          "key encipherment",
+          "client auth"
+        ]
+      }
+    }
+  }
+}
+```
+修改为
+```json
+{
+  "signing": {
+    "default": {
+      "expiry": "8760h"
+    },
+    "profiles": {
+      "www": {
+        "expiry": "8760h",
+        "usages": [
+          "signing",
+          "key encipherment",
+          "server auth",
+          "client auth"
+        ]
+      },
+      "client": {
+        "expiry": "8760h",
+        "usages": [
+          "signing",
+          "key encipherment",
+          "client auth"
+        ]
+      }
+    }
+  },
+  "auth_keys": {
+    "key1": {
+      "key": "1f27569ae7ec9e3178e965f7dc9ccedc",
+      "type": "standard"
+    }
+  }
+}
+```
+注释
+*   default 默认策略，指定证书的默认有效期1年（8760h）
+*   profiles 表示可以设置多个profile即配置
+    * www
+        * usages 使用选项
+            * signing 表示该证书可用于签名其它证书；生成的 ca.pem 证书中 CA=TRUE
+            * key encipherment 密钥加密
+            * server auth 表示可以用该CA对server提供的证书进行验证
+            * client auth 表示可以用该CA对client提供的证书进行验证
+*   auth_keys 存储key1的加密key(16进制字符串)用于鉴权,有三种填写方式:
+        1.前缀为env:表示从环境变量获取  
+        2.前缀为file:表示从文件获取  
+        3.无:分割的情况获取原始内容  
+
+启动CA服务
+```shell script
+cfssl serve -ca-key ca-key.pem -ca ca.pem -config ca-config.json
+```
+```text
+2021/05/08 16:58:58 [INFO] endpoint '/api/v1/cfssl/info' is enabled
+2021/05/08 16:58:58 [INFO] endpoint '/api/v1/cfssl/newcert' is enabled
+2021/05/08 16:58:58 [INFO] setting up key / CSR generator
+2021/05/08 16:58:58 [INFO] endpoint '/api/v1/cfssl/newkey' is enabled
+2021/05/08 16:58:58 [INFO] endpoint '/api/v1/cfssl/certinfo' is enabled
+2021/05/08 16:58:58 [WARNING] endpoint 'revoke' is disabled: cert db not configured (missing -db-config)
+2021/05/08 16:58:58 [INFO] endpoint '/' is enabled
+2021/05/08 16:58:58 [INFO] endpoint '/api/v1/cfssl/health' is enabled
+2021/05/08 16:58:58 [INFO] Handler set up complete.
+2021/05/08 16:58:58 [INFO] Now listening on 127.0.0.1:8888
+```
+#### 2.基于CA服务，颁发证书
+类似于ca的颁发,需要小部分改动即可
+首先config的配置,暂时命名为client-config.json
+```json
+{
+  "signing": {
+    "default": {
+      "remote": "CAServer"
+    }
+  },
+  "auth_keys": {
+    "key1": {
+      "key": "1f27569ae7ec9e3178e965f7dc9ccedc",
+      "type": "standard"
+    }
+  },
+  "remotes": {
+    "CAServer": "http://127.0.0.1:8888"
+  }
+}
+```
+其次csr，命名client-csr.json
+```json
+{
+  "CN": "example.net",
+  "hosts": [
+    "example.net",
+    "www.example.net"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "CN",
+      "ST": "GuangDong",
+      "L": "ShenZhen",
+      "O": "HW",
+      "OU": "BU"
+    }
+  ]
+}
+```
+生成对应的私钥client-key.pem、csr文件client.csr和证书文件client.pem
+```shell script
+ cfssl gencert -config client-config.json client-csr.json | cfssljson -bare client
+```
+重新签名
+```shell script
+ cfssl gencert -config client-config.json client.csr | cfssljson -bare client-new
+```
 
 ### golang的双向认证应用
 服务端  

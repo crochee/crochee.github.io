@@ -69,7 +69,7 @@
 <meta itemprop="name" content="SSL证书">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2021-04-25T17:05:47&#43;08:00" />
 <meta itemprop="dateModified" content="2021-04-25T17:05:47&#43;08:00" />
-<meta itemprop="wordCount" content="479">
+<meta itemprop="wordCount" content="1813">
 <meta itemprop="keywords" content="SSL,TLS," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SSL证书"/>
 <meta name="twitter:description" content=""/>
@@ -353,8 +353,487 @@ server-key.pem 服务端秘钥</p>
 <h3 id="相关生成工具">相关生成工具</h3>
 <p>目前自颁发证书的工具有两类，openssl,cfssl<br>
 cfssl由golang编写，官网：https://github.com/cloudflare/cfssl<br>
-根据官网流程生成本地工具或者服务</p>
-<h3 id="golang的双向认证应用">golang的双向认证应用</h3>
+根据官网流程生成本地工具或者服务,为了方便后续步骤最好是全部安装</p>
+<h4 id="1生成ca证书和私钥">1.生成CA证书和私钥</h4>
+<h5 id="生成csr配置">生成csr配置</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 打印csr模板文件从而进行修改</span>
+cfssl print-defaults csr &gt; ca-csr.json
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看内容</span>
+cat ca-csr.json
+</code></pre></td></tr></table>
+</div>
+</div><p>内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;CN&#34;</span><span class="p">:</span> <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;hosts&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;www.example.net&#34;</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;algo&#34;</span><span class="p">:</span> <span class="s2">&#34;ecdsa&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">256</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;names&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;C&#34;</span><span class="p">:</span> <span class="s2">&#34;US&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;ST&#34;</span><span class="p">:</span> <span class="s2">&#34;CA&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;L&#34;</span><span class="p">:</span> <span class="s2">&#34;San Francisco&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>修改为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;CN&#34;</span><span class="p">:</span> <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;hosts&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;www.example.net&#34;</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;algo&#34;</span><span class="p">:</span> <span class="s2">&#34;rsa&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">2048</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;names&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;C&#34;</span><span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;ST&#34;</span><span class="p">:</span> <span class="s2">&#34;GuangDong&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;L&#34;</span><span class="p">:</span> <span class="s2">&#34;ShenZhen&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;O&#34;</span><span class="p">:</span> <span class="s2">&#34;HW&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;OU&#34;</span><span class="p">:</span> <span class="s2">&#34;BU&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>注释</p>
+<ul>
+<li>csr Certificate Signing Request的英文缩写，即证书签名请求文件</li>
+<li>CN Common Name，浏览器使用该字段验证网站是否合法，一般写的是域名。非常重要。浏览器使用该字段验证网站是否合法。如果是CA，这是CA生成证书的域名</li>
+<li>key 生成证书的算法</li>
+<li>hosts：表示哪些主机名(域名)或者IP可以使用此csr申请的证书，为空或者&quot;&ldquo;表示所有的都可以使用</li>
+<li>names:
+<ul>
+<li>C 国家，一般都是填写国际通用的国家缩写</li>
+<li>L 城市，使用cert的组织所在城市</li>
+<li>O 组织或公司名称，就是使用cert的组织名称</li>
+<li>OU 具体使用cert的部门或单位，就是组织的下级名称</li>
+<li>ST 省份，使用cert的组织所在省份</li>
+</ul>
+</li>
+</ul>
+<h5 id="生成ca-keypemcacsr和capem">生成ca-key.pem、ca.csr和ca.pem</h5>
+<p>初次情况下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cfssl gencert -initca ca-csr.json <span class="p">|</span> cfssljson -bare ca
+</code></pre></td></tr></table>
+</div>
+</div><p>使用现有私钥, 重新生成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cfssl gencert -initca -ca-key ca-key.pem ca-csr.json <span class="p">|</span> cfssljson -bare ca
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">2021/05/08 15:46:32 [INFO] generating a new CA key and certificate from CSR
+2021/05/08 15:46:32 [INFO] generate received request
+2021/05/08 15:46:32 [INFO] received CSR
+2021/05/08 15:46:32 [INFO] generating key: rsa-2048
+2021/05/08 15:46:32 [INFO] encoded CSR
+2021/05/08 15:46:32 [INFO] signed certificate with serial number 220628825042308002764673979550323427974788427273
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="配置证书生成策略并启动ca服务">配置证书生成策略，并启动ca服务</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 打印config模板文件从而进行修改</span>
+cfssl print-defaults config &gt; ca-config.json
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看内容</span>
+cat ca-config.json
+</code></pre></td></tr></table>
+</div>
+</div><p>内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;signing&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;168h&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;profiles&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;www&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;usages&#34;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&#34;signing&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;key encipherment&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;server auth&#34;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&#34;client&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;usages&#34;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&#34;signing&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;key encipherment&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;client auth&#34;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>修改为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;signing&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;profiles&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;www&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;usages&#34;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&#34;signing&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;key encipherment&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;server auth&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;client auth&#34;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&#34;client&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;usages&#34;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&#34;signing&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;key encipherment&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;client auth&#34;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;auth_keys&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;key1&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;1f27569ae7ec9e3178e965f7dc9ccedc&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>注释</p>
+<ul>
+<li>default 默认策略，指定证书的默认有效期1年（8760h）</li>
+<li>profiles 表示可以设置多个profile即配置
+<ul>
+<li>www
+<ul>
+<li>usages 使用选项
+<ul>
+<li>signing 表示该证书可用于签名其它证书；生成的 ca.pem 证书中 CA=TRUE</li>
+<li>key encipherment 密钥加密</li>
+<li>server auth 表示可以用该CA对server提供的证书进行验证</li>
+<li>client auth 表示可以用该CA对client提供的证书进行验证</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>auth_keys 存储key1的加密key(16进制字符串)用于鉴权,有三种填写方式:
+1.前缀为env:表示从环境变量获取<br>
+2.前缀为file:表示从文件获取<br>
+3.无:分割的情况获取原始内容</li>
+</ul>
+<p>启动CA服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cfssl serve -ca-key ca-key.pem -ca ca.pem -config ca-config.json
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">2021/05/08 16:58:58 [INFO] endpoint &#39;/api/v1/cfssl/info&#39; is enabled
+2021/05/08 16:58:58 [INFO] endpoint &#39;/api/v1/cfssl/newcert&#39; is enabled
+2021/05/08 16:58:58 [INFO] setting up key / CSR generator
+2021/05/08 16:58:58 [INFO] endpoint &#39;/api/v1/cfssl/newkey&#39; is enabled
+2021/05/08 16:58:58 [INFO] endpoint &#39;/api/v1/cfssl/certinfo&#39; is enabled
+2021/05/08 16:58:58 [WARNING] endpoint &#39;revoke&#39; is disabled: cert db not configured (missing -db-config)
+2021/05/08 16:58:58 [INFO] endpoint &#39;/&#39; is enabled
+2021/05/08 16:58:58 [INFO] endpoint &#39;/api/v1/cfssl/health&#39; is enabled
+2021/05/08 16:58:58 [INFO] Handler set up complete.
+2021/05/08 16:58:58 [INFO] Now listening on 127.0.0.1:8888
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2基于ca服务颁发证书">2.基于CA服务，颁发证书</h4>
+<p>类似于ca的颁发,需要小部分改动即可
+首先config的配置,暂时命名为client-config.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;signing&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;remote&#34;</span><span class="p">:</span> <span class="s2">&#34;CAServer&#34;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;auth_keys&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;key1&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;1f27569ae7ec9e3178e965f7dc9ccedc&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;remotes&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;CAServer&#34;</span><span class="p">:</span> <span class="s2">&#34;http://127.0.0.1:8888&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其次csr，命名client-csr.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;CN&#34;</span><span class="p">:</span> <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;hosts&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;www.example.net&#34;</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;algo&#34;</span><span class="p">:</span> <span class="s2">&#34;rsa&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">2048</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;names&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;C&#34;</span><span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;ST&#34;</span><span class="p">:</span> <span class="s2">&#34;GuangDong&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;L&#34;</span><span class="p">:</span> <span class="s2">&#34;ShenZhen&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;O&#34;</span><span class="p">:</span> <span class="s2">&#34;HW&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;OU&#34;</span><span class="p">:</span> <span class="s2">&#34;BU&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成对应的私钥client-key.pem、csr文件client.csr和证书文件client.pem</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"> cfssl gencert -config client-config.json client-csr.json <span class="p">|</span> cfssljson -bare client
+</code></pre></td></tr></table>
+</div>
+</div><p>重新签名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"> cfssl gencert -config client-config.json client.csr <span class="p">|</span> cfssljson -bare client-new
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="golang的双向认证应用">golang的双向认证应用</h3>
 <p>服务端</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
