@@ -33,8 +33,18 @@ server-key.pem 服务端秘钥
 ### 相关生成工具
 目前自颁发证书的工具有两类，openssl,cfssl  
 cfssl由golang编写，官网：https://github.com/cloudflare/cfssl  
-根据官网流程生成本地工具或者服务,为了方便后续步骤最好是全部安装
+根据官网流程生成本地工具或者服务,为了方便后续步骤最好是全部安装   
+参考文档https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/04-certificate-authority.md
 #### 1.生成CA证书和私钥
+常用指令  
+查看证书信息
+```shell script
+cfssl certinfo -cert ca.pem
+```
+查看csr信息
+```shell script
+cfssl certinfo -csr ca.csr
+```
 ##### 生成csr配置
 ```shell script
 # 打印csr模板文件从而进行修改
@@ -68,10 +78,10 @@ cat ca-csr.json
 修改为
 ```json
 {
-  "CN": "example.net",
+  "CN": "localhost",
   "hosts": [
-    "example.net",
-    "www.example.net"
+    "localhost",
+    "127.0.0.1"
   ],
   "key": {
     "algo": "rsa",
@@ -158,32 +168,38 @@ cat ca-config.json
 {
   "signing": {
     "default": {
-      "expiry": "8760h"
+      "auth_key": "server_auth",
+      "expiry": "168h"
     },
     "profiles": {
-      "www": {
+      "server": {
+        "auth_key": "server_auth",
         "expiry": "8760h",
         "usages": [
           "signing",
           "key encipherment",
-          "server auth",
           "client auth"
         ]
       },
       "client": {
+        "auth_key": "client_auth",
         "expiry": "8760h",
         "usages": [
           "signing",
           "key encipherment",
-          "client auth"
+          "server auth"
         ]
       }
     }
   },
   "auth_keys": {
-    "key1": {
-      "key": "1f27569ae7ec9e3178e965f7dc9ccedc",
-      "type": "standard"
+    "server_auth": {
+      "type": "standard",
+      "key": "6d79206669727374207365727665722d617574682c68656c6c6f"
+    },
+    "client_auth": {
+      "type": "standard",
+      "key": "6d7920666972737420636c69656e742d617574682c68656c6c6f"
     }
   }
 }
@@ -225,13 +241,30 @@ cfssl serve -ca-key ca-key.pem -ca ca.pem -config ca-config.json
 {
   "signing": {
     "default": {
+      "auth_key": "server_auth",
+      "expiry": "168h",
       "remote": "CAServer"
+    },
+    "profiles": {
+      "client": {
+        "auth_key": "client_auth",
+        "expiry": "8760h",
+        "usages": [
+          "signing",
+          "key encipherment",
+          "server auth"
+        ]
+      }
     }
   },
   "auth_keys": {
-    "key1": {
-      "key": "1f27569ae7ec9e3178e965f7dc9ccedc",
-      "type": "standard"
+    "server_auth": {
+      "type": "standard",
+      "key": "6d79206669727374207365727665722d617574682c68656c6c6f"
+    },
+    "client_auth": {
+      "type": "standard",
+      "key": "6d7920666972737420636c69656e742d617574682c68656c6c6f"
     }
   },
   "remotes": {
@@ -242,10 +275,10 @@ cfssl serve -ca-key ca-key.pem -ca ca.pem -config ca-config.json
 其次csr，命名client-csr.json
 ```json
 {
-  "CN": "example.net",
+  "CN": "localhost",
   "hosts": [
-    "example.net",
-    "www.example.net"
+    "localhost",
+    "127.0.0.1"
   ],
   "key": {
     "algo": "rsa",
@@ -260,7 +293,7 @@ cfssl serve -ca-key ca-key.pem -ca ca.pem -config ca-config.json
       "OU": "BU"
     }
   ]
-}
+}            
 ```
 生成对应的私钥client-key.pem、csr文件client.csr和证书文件client.pem
 ```shell script

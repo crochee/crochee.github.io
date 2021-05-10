@@ -69,7 +69,7 @@
 <meta itemprop="name" content="SSL证书">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2021-04-25T17:05:47&#43;08:00" />
 <meta itemprop="dateModified" content="2021-04-25T17:05:47&#43;08:00" />
-<meta itemprop="wordCount" content="1813">
+<meta itemprop="wordCount" content="2010">
 <meta itemprop="keywords" content="SSL,TLS," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SSL证书"/>
 <meta name="twitter:description" content=""/>
@@ -353,9 +353,29 @@ server-key.pem 服务端秘钥</p>
 <h3 id="相关生成工具">相关生成工具</h3>
 <p>目前自颁发证书的工具有两类，openssl,cfssl<br>
 cfssl由golang编写，官网：https://github.com/cloudflare/cfssl<br>
-根据官网流程生成本地工具或者服务,为了方便后续步骤最好是全部安装</p>
+根据官网流程生成本地工具或者服务,为了方便后续步骤最好是全部安装<br>
+参考文档https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/04-certificate-authority.md</p>
 <h4 id="1生成ca证书和私钥">1.生成CA证书和私钥</h4>
-<h5 id="生成csr配置">生成csr配置</h5>
+<p>常用指令<br>
+查看证书信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cfssl certinfo -cert ca.pem
+</code></pre></td></tr></table>
+</div>
+</div><p>查看csr信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cfssl certinfo -csr ca.csr
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="生成csr配置">生成csr配置</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -445,10 +465,10 @@ cat ca-csr.json
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;CN&#34;</span><span class="p">:</span> <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;CN&#34;</span><span class="p">:</span> <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
   <span class="nt">&#34;hosts&#34;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;www.example.net&#34;</span>
+    <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;127.0.0.1&#34;</span>
   <span class="p">],</span>
   <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&#34;algo&#34;</span><span class="p">:</span> <span class="s2">&#34;rsa&#34;</span><span class="p">,</span>
@@ -632,37 +652,49 @@ cat ca-config.json
 </span><span class="lnt">30
 </span><span class="lnt">31
 </span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&#34;signing&#34;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span>
+      <span class="nt">&#34;auth_key&#34;</span><span class="p">:</span> <span class="s2">&#34;server_auth&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;168h&#34;</span>
     <span class="p">},</span>
     <span class="nt">&#34;profiles&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;www&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;server&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;auth_key&#34;</span><span class="p">:</span> <span class="s2">&#34;server_auth&#34;</span><span class="p">,</span>
         <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span><span class="p">,</span>
         <span class="nt">&#34;usages&#34;</span><span class="p">:</span> <span class="p">[</span>
           <span class="s2">&#34;signing&#34;</span><span class="p">,</span>
           <span class="s2">&#34;key encipherment&#34;</span><span class="p">,</span>
-          <span class="s2">&#34;server auth&#34;</span><span class="p">,</span>
           <span class="s2">&#34;client auth&#34;</span>
         <span class="p">]</span>
       <span class="p">},</span>
       <span class="nt">&#34;client&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;auth_key&#34;</span><span class="p">:</span> <span class="s2">&#34;client_auth&#34;</span><span class="p">,</span>
         <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span><span class="p">,</span>
         <span class="nt">&#34;usages&#34;</span><span class="p">:</span> <span class="p">[</span>
           <span class="s2">&#34;signing&#34;</span><span class="p">,</span>
           <span class="s2">&#34;key encipherment&#34;</span><span class="p">,</span>
-          <span class="s2">&#34;client auth&#34;</span>
+          <span class="s2">&#34;server auth&#34;</span>
         <span class="p">]</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="nt">&#34;auth_keys&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;key1&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;1f27569ae7ec9e3178e965f7dc9ccedc&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span>
+    <span class="nt">&#34;server_auth&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;6d79206669727374207365727665722d617574682c68656c6c6f&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;client_auth&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;6d7920666972737420636c69656e742d617574682c68656c6c6f&#34;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -748,18 +780,52 @@ cat ca-config.json
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&#34;signing&#34;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;auth_key&#34;</span><span class="p">:</span> <span class="s2">&#34;server_auth&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;168h&#34;</span><span class="p">,</span>
       <span class="nt">&#34;remote&#34;</span><span class="p">:</span> <span class="s2">&#34;CAServer&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;profiles&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;client&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;auth_key&#34;</span><span class="p">:</span> <span class="s2">&#34;client_auth&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;expiry&#34;</span><span class="p">:</span> <span class="s2">&#34;8760h&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;usages&#34;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&#34;signing&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;key encipherment&#34;</span><span class="p">,</span>
+          <span class="s2">&#34;server auth&#34;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="nt">&#34;auth_keys&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;key1&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;1f27569ae7ec9e3178e965f7dc9ccedc&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span>
+    <span class="nt">&#34;server_auth&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;6d79206669727374207365727665722d617574682c68656c6c6f&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;client_auth&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;6d7920666972737420636c69656e742d617574682c68656c6c6f&#34;</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="nt">&#34;remotes&#34;</span><span class="p">:</span> <span class="p">{</span>
@@ -794,10 +860,10 @@ cat ca-config.json
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;CN&#34;</span><span class="p">:</span> <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;CN&#34;</span><span class="p">:</span> <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
   <span class="nt">&#34;hosts&#34;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&#34;example.net&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;www.example.net&#34;</span>
+    <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;127.0.0.1&#34;</span>
   <span class="p">],</span>
   <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&#34;algo&#34;</span><span class="p">:</span> <span class="s2">&#34;rsa&#34;</span><span class="p">,</span>
@@ -812,7 +878,7 @@ cat ca-config.json
       <span class="nt">&#34;OU&#34;</span><span class="p">:</span> <span class="s2">&#34;BU&#34;</span>
     <span class="p">}</span>
   <span class="p">]</span>
-<span class="p">}</span>
+<span class="p">}</span>            
 </code></pre></td></tr></table>
 </div>
 </div><p>生成对应的私钥client-key.pem、csr文件client.csr和证书文件client.pem</p>
