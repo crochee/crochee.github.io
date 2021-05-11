@@ -78,11 +78,7 @@ cat ca-csr.json
 修改为
 ```json
 {
-  "CN": "localhost",
-  "hosts": [
-    "localhost",
-    "127.0.0.1"
-  ],
+  "CN": "MySite",
   "key": {
     "algo": "rsa",
     "size": 2048
@@ -168,38 +164,18 @@ cat ca-config.json
 {
   "signing": {
     "default": {
-      "auth_key": "server_auth",
-      "expiry": "168h"
+      "expiry": "8760h"
     },
     "profiles": {
-      "server": {
-        "auth_key": "server_auth",
+      "MySite": {
         "expiry": "8760h",
         "usages": [
           "signing",
           "key encipherment",
+          "server auth",
           "client auth"
         ]
-      },
-      "client": {
-        "auth_key": "client_auth",
-        "expiry": "8760h",
-        "usages": [
-          "signing",
-          "key encipherment",
-          "server auth"
-        ]
       }
-    }
-  },
-  "auth_keys": {
-    "server_auth": {
-      "type": "standard",
-      "key": "6d79206669727374207365727665722d617574682c68656c6c6f"
-    },
-    "client_auth": {
-      "type": "standard",
-      "key": "6d7920666972737420636c69656e742d617574682c68656c6c6f"
     }
   }
 }
@@ -236,50 +212,10 @@ cfssl serve -ca-key ca-key.pem -ca ca.pem -config ca-config.json
 ```
 #### 2.基于CA服务，颁发证书
 类似于ca的颁发,需要小部分改动即可
-首先config的配置,暂时命名为client-config.json
+对于csr，命名client-csr.json
 ```json
 {
-  "signing": {
-    "default": {
-      "auth_key": "server_auth",
-      "expiry": "168h",
-      "remote": "CAServer"
-    },
-    "profiles": {
-      "client": {
-        "auth_key": "client_auth",
-        "expiry": "8760h",
-        "usages": [
-          "signing",
-          "key encipherment",
-          "server auth"
-        ]
-      }
-    }
-  },
-  "auth_keys": {
-    "server_auth": {
-      "type": "standard",
-      "key": "6d79206669727374207365727665722d617574682c68656c6c6f"
-    },
-    "client_auth": {
-      "type": "standard",
-      "key": "6d7920666972737420636c69656e742d617574682c68656c6c6f"
-    }
-  },
-  "remotes": {
-    "CAServer": "http://127.0.0.1:8888"
-  }
-}
-```
-其次csr，命名client-csr.json
-```json
-{
-  "CN": "localhost",
-  "hosts": [
-    "localhost",
-    "127.0.0.1"
-  ],
+  "CN": "client",
   "key": {
     "algo": "rsa",
     "size": 2048
@@ -293,17 +229,16 @@ cfssl serve -ca-key ca-key.pem -ca ca.pem -config ca-config.json
       "OU": "BU"
     }
   ]
-}            
+}           
 ```
 生成对应的私钥client-key.pem、csr文件client.csr和证书文件client.pem
 ```shell script
- cfssl gencert -config client-config.json client-csr.json | cfssljson -bare client
+ cfssl gencert -config ca-config.json -ca=ca.pem -ca-key=ca-key.pem -profile=MySite client-csr.json | cfssljson -bare client
 ```
 重新签名
 ```shell script
- cfssl gencert -config client-config.json client.csr | cfssljson -bare client-new
+ cfssl gencert -config ca-config.json client.csr | cfssljson -bare client-new
 ```
-
 ### golang的双向认证应用
 服务端  
 ```go

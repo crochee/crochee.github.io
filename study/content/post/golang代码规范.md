@@ -22,6 +22,7 @@ mathjax: false
 
 <!--more-->
 ### 目录规范
+参考项目https://github.com/golang-standards/project-layout  
 如同linux目录都有他的职责一样，代码目录也必须符合一定规范：
 -   README.md 项目说明文档，说明项目的功能等信息
 -   .gitignore 包含忽略的文件内容，必须将IDE的配置，二进制文件，临时文件排除
