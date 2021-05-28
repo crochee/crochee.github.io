@@ -6,7 +6,7 @@
     <description>Recent content on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 21 May 2021 15:05:07 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 28 May 2021 11:12:26 +0800</lastBuildDate>
     
         <atom:link href="https://crochee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -28,6 +28,22 @@
 &lt;/ul&gt;
 &lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 </description>
+      
+    </item>
+    
+    <item>
+      <title>Wasm</title>
+      <link>https://crochee.github.io/post/wasm/</link>
+      <pubDate>Fri, 28 May 2021 11:12:26 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/post/wasm/</guid>
+      
+        <description>&lt;h1 id=&#34;wasm-框架和库选择&#34;&gt;WASM 框架和库选择&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;c# + Blazor&lt;/li&gt;
+&lt;li&gt;Go + Vugu&lt;/li&gt;
+&lt;li&gt;Rust + Yew&lt;/li&gt;
+&lt;/ul&gt;</description>
       
     </item>
     
