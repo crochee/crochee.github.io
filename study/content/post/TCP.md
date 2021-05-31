@@ -22,4 +22,4 @@ mathjax: false
 
 <!--more-->
 ## TCP 三次握手
-流程图：![alt](./tcp3.jpeg)
+流程图：![alt](tcp3.jpeg)
