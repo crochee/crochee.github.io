@@ -6,7 +6,7 @@
     <description>Recent content on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 28 May 2021 11:12:26 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 31 May 2021 16:29:30 +0800</lastBuildDate>
     
         <atom:link href="https://crochee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -28,6 +28,18 @@
 &lt;/ul&gt;
 &lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 </description>
+      
+    </item>
+    
+    <item>
+      <title>TCP</title>
+      <link>https://crochee.github.io/post/tcp/</link>
+      <pubDate>Mon, 31 May 2021 16:29:30 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/post/tcp/</guid>
+      
+        <description>&lt;h2 id=&#34;tcp-三次握手&#34;&gt;TCP 三次握手&lt;/h2&gt;
+&lt;p&gt;流程图：&lt;img src=&#34;./tcp3.jpeg&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;</description>
       
     </item>
     
