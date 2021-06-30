@@ -6,7 +6,7 @@
     <description>Recent content on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 31 May 2021 16:29:30 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 30 Jun 2021 11:12:49 +0800</lastBuildDate>
     
         <atom:link href="https://crochee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -28,6 +28,17 @@
 &lt;/ul&gt;
 &lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 </description>
+      
+    </item>
+    
+    <item>
+      <title>进程间通信</title>
+      <link>https://crochee.github.io/post/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</link>
+      <pubDate>Wed, 30 Jun 2021 11:12:49 +0800</pubDate>
+      
+      <guid>https://crochee.github.io/post/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</guid>
+      
+        <description>&lt;p&gt;进程间通信方式包括管道，信号，消息队列，共享内存，信号量和 socket 等方式，对应到 Go 实现是 io.Pipe，os.Signal，sync.Mutex，net pkg 等&lt;/p&gt;</description>
       
     </item>
     

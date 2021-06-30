@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>归档 - Blog</title>
+  <title>进程间通信 - Blog</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -23,8 +23,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="crochee" />
-  <meta name="description" content="crochee&#39;s blog web" />
-  <meta name="keywords" content="Golang, Rust, Docker, Some" />
+  <meta name="description" content="" />
+<meta name="keywords" content="golang" />
+
 
 
 
@@ -34,8 +35,8 @@
 <meta name="generator" content="Hugo 0.81.0" />
 
 
-<link rel="canonical" href="https://crochee.github.io/post/" />
-<link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="Blog" />
+<link rel="canonical" href="https://crochee.github.io/post/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" />
+
 
 
 
@@ -58,15 +59,20 @@
 
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="crochee&#39;s blog web" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://crochee.github.io/post/" />
+<meta property="og:title" content="进程间通信" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://crochee.github.io/post/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-06-30T11:12:49&#43;08:00" />
+<meta property="article:modified_time" content="2021-06-30T11:12:49&#43;08:00" />
 
-<meta itemprop="name" content="Posts">
-<meta itemprop="description" content="crochee&#39;s blog web"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="crochee&#39;s blog web"/>
+<meta itemprop="name" content="进程间通信">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2021-06-30T11:12:49&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-30T11:12:49&#43;08:00" />
+<meta itemprop="wordCount" content="75">
+<meta itemprop="keywords" content="golang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="进程间通信"/>
+<meta name="twitter:description" content=""/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -237,7 +243,7 @@
 
       </li>
     
-        <li class="menu-item active">
+        <li class="menu-item">
         
           
           
@@ -307,137 +313,76 @@
     <main id="main" class="main bg-llight">
       <div class="content-wrapper">
         <div id="content" class="content container">
-          
-<section id="archive" class="archive">
-    <div class="archive-title">
-      <span class="archive-post-counter">
-          共计 8 篇文章
-      </span>
-    </div>
+          <article class="post bg-white">
     
-      <div class="collection-title">
-        <h2 class="archive-year">2021</h2>
+    <header class="post-header">
+      <h1 class="post-title">进程间通信</h1>
+      
+      <div class="post-meta">
+        <time datetime="2021-06-30" class="post-time">
+          2021-06-30
+        </time>
+        <div class="post-category">
+            <a href="https://crochee.github.io/categories/golang/"> golang </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
       </div>
+    </header>
 
-    <div class="archive-post">
-      <time datetime="2021-06-30" class="archive-post-time">
-        2021-06-30
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" class="archive-post-link">
-          进程间通信
-        </a>
-      </span>
-    </div>
+    
     
 
-    <div class="archive-post">
-      <time datetime="2021-05-31" class="archive-post-time">
-        2021-05-31
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/tcp/" class="archive-post-link">
-          TCP
-        </a>
-      </span>
+    
+    <div class="post-content">
+      <p>进程间通信方式包括管道，信号，消息队列，共享内存，信号量和 socket 等方式，对应到 Go 实现是 io.Pipe，os.Signal，sync.Mutex，net pkg 等</p>
     </div>
+
+    
     
 
-    <div class="archive-post">
-      <time datetime="2021-05-28" class="archive-post-time">
-        2021-05-28
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/wasm/" class="archive-post-link">
-          Wasm
-        </a>
-      </span>
-    </div>
+
+    
     
 
-    <div class="archive-post">
-      <time datetime="2021-05-21" class="archive-post-time">
-        2021-05-21
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/%E7%AE%97%E6%B3%95/" class="archive-post-link">
-          算法
-        </a>
-      </span>
-    </div>
-    
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://crochee.github.io/tags/golang/">golang</a>
+          
+        </div>
 
-    <div class="archive-post">
-      <time datetime="2021-04-25" class="archive-post-time">
-        2021-04-25
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/ssl%E8%AF%81%E4%B9%A6/" class="archive-post-link">
-          SSL证书
-        </a>
-      </span>
-    </div>
-    
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/tcp/">
+            <span class="next-text nav-default">TCP</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
 
-    <div class="archive-post">
-      <time datetime="2021-04-21" class="archive-post-time">
-        2021-04-21
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/golang%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="archive-post-link">
-          Golang代码规范
-        </a>
-      </span>
-    </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-03-22" class="archive-post-time">
-        2021-03-22
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/golang%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" class="archive-post-link">
-          Golang开发代码检查工具
-        </a>
-      </span>
-    </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2021-03-06" class="archive-post-time">
-        2021-03-06
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/%E5%BB%BA%E7%AB%8B%E7%BD%91%E7%AB%99/" class="archive-post-link">
-          建立网站
-        </a>
-      </span>
-    </div></section>
-
-
-
-
-
-
-  
-  
-  
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
 
   
   
 
   
   
-
-  
-  
-
-  
-  
-
-
-
-
 
         </div>
       </div>
