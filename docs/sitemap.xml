@@ -10,14 +10,49 @@
   
   <url>
     <loc>https://crochee.github.io/</loc>
-    <lastmod>2021-06-30T11:12:49+08:00</lastmod>
+    <lastmod>2021-07-05T11:19:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://crochee.github.io/categories/</loc>
-    <lastmod>2021-06-30T11:12:49+08:00</lastmod>
+    <lastmod>2021-07-05T11:19:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/post/mysql/</loc>
+    <lastmod>2021-07-05T11:19:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/tags/mysql/</loc>
+    <lastmod>2021-07-05T11:19:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/categories/mysql/</loc>
+    <lastmod>2021-07-05T11:19:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/post/</loc>
+    <lastmod>2021-07-05T11:19:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://crochee.github.io/tags/</loc>
+    <lastmod>2021-07-05T11:19:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,20 +66,6 @@
   
   <url>
     <loc>https://crochee.github.io/categories/golang/</loc>
-    <lastmod>2021-06-30T11:12:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/post/</loc>
-    <lastmod>2021-06-30T11:12:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://crochee.github.io/tags/</loc>
     <lastmod>2021-06-30T11:12:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
