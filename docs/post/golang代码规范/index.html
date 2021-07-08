@@ -68,7 +68,7 @@
 <meta itemprop="name" content="Golang代码规范">
 <meta itemprop="description" content="golang代码规范"><meta itemprop="datePublished" content="2021-04-21T16:00:47&#43;08:00" />
 <meta itemprop="dateModified" content="2021-04-21T16:00:47&#43;08:00" />
-<meta itemprop="wordCount" content="739">
+<meta itemprop="wordCount" content="1708">
 <meta itemprop="keywords" content="规范," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Golang代码规范"/>
 <meta name="twitter:description" content="golang代码规范"/>
@@ -404,6 +404,63 @@ go.mod与go.sum为所有项目必备文件，允许子目录内部存在这2个�
 <li>[why:根因分析]：缺陷定位根因描述 / 代码重构原因</li>
 <li>[where&amp;how:修改思路]：改动的代码文件和位置, 需求实现思路 / 缺陷解决思路</li>
 <li>[how test:影响描述&amp;测试建议]：修改点的影响描述，已经做了哪些测试，还有哪些风险点需要重点检视？</li>
+</ul>
+<h3 id="编码规则集">编码规则集</h3>
+<ul>
+<li>规则6.7  禁止在nil和closed的channel上进行接收，发送和关闭操作</li>
+<li>规则 1.2: 确保有符号整数运算时不会出现溢出</li>
+<li>规则 1.1：确保无符号整数运算时不会回绕</li>
+<li>规则 5.5: 确保对channel是否关闭做检查</li>
+<li>规则 9.2: 确保在多用户系统中创建文件时指定合适的访问许可</li>
+<li>规则 3.1: 确保能释放文件句柄、DB连接和内存资源等</li>
+<li>规则 9.4: 避免在共享目录操作文件</li>
+<li>规则 1.3: 确保整型转换时不会出现截断错误</li>
+<li>规则 9.1: 确保临时文件使用完毕后及时删除</li>
+<li>规则5.1  一个目录中只包含一个包（实现一个模块的功能）</li>
+<li>redundant_code[GO]</li>
+<li>规则5.3  禁止使用相对路径导入（./subpackage），所有导入路径必须符合 go get 标准</li>
+<li>规则 6.2：确保在并发下对共享数据对象的访问不存在数据竞争</li>
+<li>规则 7.2: 禁止将敏感信息保存在日志中或将其输出到控制台及串口</li>
+<li>规则6.2  一个文件只定义一个init函数</li>
+<li>规则3.3  每个包(package)都必须要有包注释</li>
+<li>huge_non_headerfile[GO]</li>
+<li>规则6.3  一个包内的如果存在多个init函数，不能有任何的依赖关系</li>
+<li>规则1.5  包名必须全部为小写单词，允许包含数字，无下划线</li>
+<li>规则 7.1: 禁止将敏感信息硬编码在程序中</li>
+<li>huge_cyclomatic_complexity[GO]</li>
+<li>规则 3.4: 禁止SetFinalize和指针循环引用同时使用防止内存泄露</li>
+<li>unsafe_function[GO]</li>
+<li>规则5.2  禁止使用 . 来简化导入包的对象调用</li>
+<li>规则1.4  目录名必须为全小写单词，允许包含数字，允许加中划线‘-’组合方式，但是头尾不能为中划线</li>
+<li>huge_method[GO]</li>
+<li>duplication_file[GO]</li>
+<li>duplication_code[GO]</li>
+<li>规则 5.1: 确保赋值给接口变量的对象指针有效否则应赋予无类型的nil值</li>
+<li>规则 8.3: 基于哈希算法的口令安全存储必须加入盐值</li>
+<li>规则 1.4: 确保整型转换时不会出现符号错误</li>
+<li>规则 5.3: 必须处理类型断言的失败</li>
+<li>规则 2.2: 禁止直接使用不可信数据拼接SQL语句</li>
+<li>huge_folder[GO]</li>
+<li>规则 7.3: 禁止在记录操作错误的日志中泄露安全敏感信息</li>
+<li>规则 3.5: 禁止重复释放资源</li>
+<li>规则 9.3: 确保文件路径验证前对其进行标准化</li>
+<li>FeatureEnvy</li>
+<li>huge_depth[GO]</li>
+<li>warning_suppression[GO]</li>
+<li>huge_headerfile[GO]</li>
+<li>规则 7.4: 禁止序列化未加密的敏感数据</li>
+<li>规则 5.2: 确保调用方法或解除引用时接口变量封装的对象指针不为空</li>
+<li>规则3.5 不用的代码段直接删除，不要注释掉</li>
+<li>DataClumps</li>
+<li>规则1.3  文件名必须为小写单词，允许包含数字，允许加下划线‘_’组合方式</li>
+<li>规则3.1  注释符与注释内容间要有1空格</li>
+<li>规则 4.1: 确保正确处理函数的错误返回值</li>
+<li>规则3.4  代码注释放于对应代码的上方或右边</li>
+<li>规则 8.2: 禁止使用私有或者弱加密算法</li>
+<li>规则3.2  文件头注释必须包含版权许可</li>
+<li>规则 3.6: 确保每个协程都能退出</li>
+<li>规则 6.1: 禁止在闭包中直接调用循环变量</li>
+<li>规则 9.5: 确保安全地从压缩包中提取文件</li>
 </ul>
     </div>
 

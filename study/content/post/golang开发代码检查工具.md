@@ -366,3 +366,8 @@ issues:
 官网：https://github.com/securego/gosec   
 本地下载:go get -u github.com/securego/gosec/cmd/gosec   
 启动参考:gosec -fmt=json -out=results.json ./...
+### 白盒测试（gotest）--覆盖率
+go test ./...  -v -coverprofile=dbops.out
+### 模糊测试
+官网：https://github.com/dvyukov/go-fuzz  
+本地下载：go get -u github.com/dvyukov/go-fuzz/go-fuzz@latest github.com/dvyukov/go-fuzz/go-fuzz-build@latest  
